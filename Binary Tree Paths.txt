@@ -1,0 +1,38 @@
+Binary Tree Paths - LeetCode
+#Leetcode
+
+解题思路
+	1.	使用dfs来做
+	2.	根据root和子节点的情况做判断
+	3.	如果传入的root为null，则直接返回
+	4.	如果子节点都为null，说明已经遍历到叶子节点，将字符串输出到结果list中
+	5.	如果有一个节点存在，则将递归调用dfs(),传入的path需要加上孩子节点的value值
+
+
+代码
+
+public List<String> binaryTreePaths(TreeNode root) {
+        List<String> list = new ArrayList<>();
+        
+        if(root == null){ return list; }
+        helper(root, list, root.val + "");
+        
+        return list;
+    }
+    
+    private void helper(TreeNode root, List<String> list,String path){
+        if(root == null){ return; }
+        
+        if(root.left == null && root.right == null){
+            list.add(path);
+            return;
+        }
+        
+        if(root.left != null){
+            helper(root.left,list,path + "->" + root.left.val);
+        }
+        
+        if(root.right != null){
+            helper(root.right,list,path + "->" + root.right.val);
+        }
+    }
