@@ -1,0 +1,18 @@
+
+Loading...
+#Leetcode
+
+解题思路
+	1.	树的问题转换为递归解题
+	2.	看当前root的值和target是否相等
+	3.	否则将target值减去自己并递归调用左节点和右节点
+
+代码
+if(root == null){ return false; }
+        
+        if(root.left == null && root.right == null){
+            return targetSum == root.val;
+        }
+        
+        targetSum -= root.val;
+        return hasPathSum(root.left,targetSum) | hasPathSum(root.right,targetSum);
