@@ -1,0 +1,31 @@
+Sum Root to Leaf Numbers - LeetCode
+#Leetcode
+
+解题思路
+	1.	使用成员变量作为全局变量res，赞！
+	2.	使用递归的方式进行
+	3.	每次都需要将计算的值*10加上当前节点的值
+	4.	如果遇到非叶子节点，则递归调用
+	5.	如果遇到叶子及诶单，则将结果累加的res上
+
+代码
+private int res;
+
+    public int sumNumbers(TreeNode root) {
+        if(root == null){ return res; }
+        
+        helper(root, 0);
+        return res;
+    }
+    
+    private void helper(TreeNode root, int val){
+        if(root == null){ return; }
+        
+        val = 10 * val + root.val;
+        if(root.left == null && root.right == null){
+            res += val;
+        }
+        
+        if(root.left != null){ helper(root.left, val); }
+        if(root.right != null){ helper(root.right, val); } 
+    }

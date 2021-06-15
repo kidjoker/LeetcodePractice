@@ -1,0 +1,34 @@
+Path Sum II - LeetCode
+#Leetcode
+
+解题思路
+	1.	使用curList记录当前的所有节点列表
+	2.	每次都将现有节点root的值存入curList
+	3.	如果到了叶子一层，且targetNum等于root节点的值，将curList放到结果集result中
+	4.	如果没有到叶子一层，将targetSum减去root.val到下一层进行比较
+	5.	递归调用左孩子或右孩子
+	6.	每次递归回去的时候，需要把curList的最后一个节点去掉，应为他不属于下一个路径，会影响结果
+
+代码
+public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> curList = new ArrayList<>();
+        if(root == null){ return result; }
+        
+        helper(root,targetSum,result,curList);
+        return result;
+    }
+    
+    private void helper(TreeNode root, int targetSum, List<List<Integer>> result, List<Integer> curList){
+        if(root == null){ return; }
+        curList.add(root.val);
+        if(root.left == null && root.right == null && root.val == targetSum){
+            result.add(new ArrayList(curList));
+        }
+        
+        targetSum-=root.val;
+        if(root.left != null){ helper(root.left,targetSum,result,curList); }
+        if(root.right != null){ helper(root.right,targetSum,result,curList); }
+        
+        curList.remove(curList.size()-1);
+    }
